@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '', // una cadena vacía representa http://localhost:4200/
+    loadChildren: ()=> import('./modules/home/home.module').then(m => m.HomeModule)
   }
 ];
 
