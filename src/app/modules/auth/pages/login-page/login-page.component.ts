@@ -29,21 +29,23 @@ export class LoginPageComponent implements OnInit {
             Validators.maxLength(12)
           ])
       }
-    )
+    );
   }
 
   sendLogin(): void {
    const { email, password } = this.formLogin.value
    this.authService.sendCredentials(email, password)
-    .subscribe(responseOk => {
-      const { tokenSession, data } = responseOk;
-      this.cookie.set('token', tokenSession, 4, '/');
-      this.router.navigate(['/', 'tracks']);
-      console.log('Sesion iniciada correcta');
-    },
-    err => {  
-      this.errorSession = true;    
-      console.log('Ocurrio error con tu email o password');
-    })
-  }  
+    .subscribe({
+      next: (responseOK) => {
+        const { tokenSession, data } = responseOK;
+        this.cookie.set('token', tokenSession, 4, '/');
+        this.router.navigate(['/', 'tracks']);
+        console.log('Sesion iniciada correcta');
+      },
+      error: (responseFail) => {
+        this.errorSession = true;    
+        console.log('Ocurrio error con tu email o password');
+      }      
+    });
+  }
 }
