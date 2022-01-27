@@ -1,21 +1,34 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable, Observer, } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, Subject, } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultimediaService {
   callback: EventEmitter<any> = new EventEmitter<any>()
-  myObservable1$: Observable<any> = new Observable();
+
+  myObservable$1: BehaviorSubject<any> = new BehaviorSubject('🐱‍🏍🐱‍🏍🐱‍🏍');
+
+  /* myObservable$1: Subject<any> = new Subject(); */
+  /* myObservable1$: Observable<any> = new Observable(); */
 
   constructor() {
-    this.myObservable1$ = new Observable(
+
+    setTimeout(() => {
+      this.myObservable$1.next('🐱‍🏍🐱‍🏍🐱‍🏍');      
+    },1000);
+
+    setTimeout(() => {
+      this.myObservable$1.error('🛑🛑🛑');      
+    },2000);
+
+    /* this.myObservable1$ = new Observable(
       (observer: Observer<any>) => {
         observer.next('🐱‍🏍🐱‍🏍🐱‍🏍')
 
-        /* setTimeout(() => {
+        setTimeout(() => {
           observer.complete()
-        }, 1500) */
+        }, 1500)
 
         setTimeout(() => {
           observer.next('🐱‍🏍🐱‍🏍🐱‍🏍')
@@ -24,6 +37,6 @@ export class MultimediaService {
         setTimeout(() => {
           observer.error('🛑🛑🛑')
         }, 3500)
-      });
+      }); */
   }
 }
