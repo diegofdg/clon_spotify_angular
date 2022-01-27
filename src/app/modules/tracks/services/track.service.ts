@@ -35,15 +35,5 @@ export class TrackService {
         map(({ data }: any) => {
           return data
         }));
-      /* .pipe(
-        mergeMap(({ data }: any) => this.skipById(data, 0)),
-        tap(data => console.log(data)),
-        catchError((err) => {
-          const { status, statusText } = err;
-          console.log('Algo pasó, revisame', [status, statusText]);
-          
-          return of([])
-        })
-        ); */
   }
 }
