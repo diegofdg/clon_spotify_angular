@@ -35,20 +35,18 @@ export class MultimediaService {
   }
 
   private setPlayerStatus = (state: any) => {
-    console.log(state);
-    
     switch (state.type) {
       case 'play':
-        this.playerStatus$.next('play')
+        this.playerStatus$.next('play');
         break
       case 'playing':
-        this.playerStatus$.next('playing')
+        this.playerStatus$.next('playing');
         break
       case 'ended':
-        this.playerStatus$.next('ended')
+        this.playerStatus$.next('ended');
         break
       default:
-        this.playerStatus$.next('paused')
+        this.playerStatus$.next('paused');
         break;
     }
   }
@@ -62,7 +60,7 @@ export class MultimediaService {
 
   private setPercentage(currentTime: number, duration: number): void {
     let percentage = (currentTime * 100) / duration;
-    this.playerPercentage$.next(percentage)
+    this.playerPercentage$.next(percentage);
   }
 
   private setTimeElapsed(currentTime: number): void {
@@ -89,11 +87,17 @@ export class MultimediaService {
 
   public setAudio(track: TrackModel): void {
     console.log('🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍🐱‍🏍', track);
-    this.audio.src = track.url
-    this.audio.play()
+    this.audio.src = track.url;
+    this.audio.play();
   }
 
   public togglePlayer(): void {
-    (this.audio.paused) ? this.audio.play() : this.audio.pause()
+    (this.audio.paused) ? this.audio.play() : this.audio.pause();
+  }
+
+  public seekAudio(percentage: number): void {
+    const { duration } = this.audio;
+    const percentageToSecond = (percentage * duration) / 100;
+    this.audio.currentTime = percentageToSecond;
   }
 }
